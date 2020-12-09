@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 class Forwarder:
     def __init__(self, config):
         self.telegram = TelegramClient(StringSession(config.session), config.api_id, config.api_hash)
-        self.phone = config.phone
         self.message_pattern = config.message_pattern
         self.input_chat_usernames = config.input_chat_usernames
         self.output_chat_usernames = config.output_chat_usernames
@@ -23,7 +22,7 @@ class Forwarder:
         self.__start_forwarding()
 
     def __connect(self):
-        self.telegram.start(self.phone)
+        self.telegram.start()
 
     def __load_input_chats(self):
         dialogs = self.telegram.get_dialogs()

@@ -1,6 +1,5 @@
 import os
 
-phone = os.environ.get('PHONE')
 session = os.environ.get('SESSION')
 api_id = os.environ.get('API_ID')
 api_hash = os.environ.get('API_HASH')
