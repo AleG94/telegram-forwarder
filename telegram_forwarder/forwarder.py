@@ -1,13 +1,14 @@
 import logging
 from telethon.sync import TelegramClient, events
 from telethon.tl.types import InputChannel
+from telethon.sessions import StringSession
 
 logger = logging.getLogger(__name__)
 
 
 class Forwarder:
     def __init__(self, config):
-        self.telegram = TelegramClient(config.session_name, config.api_id, config.api_hash)
+        self.telegram = TelegramClient(StringSession(config.session), config.api_id, config.api_hash)
         self.phone = config.phone
         self.message_pattern = config.message_pattern
         self.input_chat_usernames = config.input_chat_usernames
