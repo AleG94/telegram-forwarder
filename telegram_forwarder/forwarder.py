@@ -10,8 +10,8 @@ class Forwarder:
     def __init__(self, config):
         self.telegram = TelegramClient(StringSession(config.session), config.api_id, config.api_hash)
         self.message_pattern = config.message_pattern
-        self.input_chat_usernames = config.input_chat_usernames
-        self.output_chat_usernames = config.output_chat_usernames
+        self.input_chat_ids = config.input_chat_ids
+        self.output_chat_ids = config.output_chat_ids
         self.input_chats = []
         self.output_chats = []
 
@@ -27,24 +27,24 @@ class Forwarder:
     def __load_input_chats(self):
         dialogs = self.telegram.get_dialogs()
 
-        for username in self.input_chat_usernames:
-            dialog = next(filter(lambda e: e.entity.username == username, dialogs), None)
+        for chat_id in self.input_chat_ids:
+            dialog = next(filter(lambda e: e.entity.username == chat_id or str(e.entity.id) == chat_id, dialogs), None)
 
             if dialog:
                 self.input_chats.append(InputChannel(dialog.entity.id, dialog.entity.access_hash))
             else:
-                raise RuntimeError(f"Input chat '{username}' was not found")
+                raise RuntimeError(f"Input chat '{chat_id}' was not found")
 
     def __load_output_chats(self):
         dialogs = self.telegram.get_dialogs()
 
-        for username in self.output_chat_usernames:
-            dialog = next(filter(lambda e: e.entity.username == username, dialogs), None)
+        for chat_id in self.output_chat_ids:
+            dialog = next(filter(lambda e: e.entity.username == chat_id or str(e.entity.id) == chat_id, dialogs), None)
 
             if dialog:
                 self.output_chats.append(InputChannel(dialog.entity.id, dialog.entity.access_hash))
             else:
-                raise RuntimeError(f"Output chat '{username}' was not found")
+                raise RuntimeError(f"Output chat '{chat_id}' was not found")
 
     def __start_forwarding(self):
         @self.telegram.on(events.NewMessage(chats=self.input_chats, pattern=self.message_pattern))

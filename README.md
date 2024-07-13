@@ -26,8 +26,8 @@ Forward messages that match a specific pattern from multiple Telegram chats to o
     * `API_ID`: the [api id](https://core.telegram.org/api/obtaining_api_id) associated with your Telegram account
     * `API_HASH`: the [api hash](https://core.telegram.org/api/obtaining_api_id) associated with your Telegram account
     * `SESSION`: the session obtained in step 2
-    * `INPUT_CHAT_USERNAMES`: comma separated list of chat's usernames that you'd like to forward messages from (must be present on dialogs)
-    * `OUTPUT_CHAT_USERNAMES`: comma separated list of chat's usernames that you'd like to forward messages to (must be present on dialogs)
+    * `INPUT_CHATS`: comma separated list of chat's ids or usernames that you'd like to forward messages from (must be present on dialogs)
+    * `OUTPUT_CHATS`: comma separated list of chat's ids or usernames that you'd like to forward messages to (must be present on dialogs)
     * `MESSAGE_PATTERN`: a regular expression that messages must match to be forwarded
 
     <br>
@@ -37,8 +37,8 @@ Forward messages that match a specific pattern from multiple Telegram chats to o
       -e API_ID=<api-id>
       -e API_HASH=<api-hash>
       -e SESSION=<session>
-      -e INPUT_CHAT_USERNAMES=<username1>,<username2>
-      -e OUTPUT_CHAT_USERNAMES=<username3>,<username4>
+      -e INPUT_CHATS=<id1>,<username2>
+      -e OUTPUT_CHATS=<username3>,<id4>
       -e MESSAGE_PATTERN=<regex>
       aleg94/telegram-forwarder
     ```
